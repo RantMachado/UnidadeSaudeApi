@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using UnidadeSaudeApi.Models;
 
 namespace UnidadeSaudeApi
 {
@@ -25,6 +26,12 @@ namespace UnidadeSaudeApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<Unidade_SaudeDatabaseSettings>(
+                Configuration.GetSection(nameof(Unidade_SaudeDatabaseSettings)));
+
+            services.AddSingleton<IUnidade_SaudeDatabaseSettings>(sp =>
+               sp.GetRequiredService<IOptions<Unidade_SaudeDatabaseSettings>>().Value);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
