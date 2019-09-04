@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using UnidadeSaudeApi.Models;
+using UnidadeSaudeApi.Services;
 
 namespace UnidadeSaudeApi
 {
@@ -31,6 +32,8 @@ namespace UnidadeSaudeApi
 
             services.AddSingleton<IUnidade_SaudeDatabaseSettings>(sp =>
                sp.GetRequiredService<IOptions<Unidade_SaudeDatabaseSettings>>().Value);
+
+            services.AddSingleton<UnidadeService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
